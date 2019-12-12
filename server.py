@@ -1,5 +1,10 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
+import csv
 
+with open('./data.csv','rt')as f:
+  data = csv.reader(f)
+  for row in data:
+        print(row)
 
 class Serv(BaseHTTPRequestHandler):
 
@@ -14,7 +19,6 @@ class Serv(BaseHTTPRequestHandler):
             self.send_response(404)
         self.end_headers()
         self.wfile.write(bytes(file_to_open, 'utf-8'))
-
 
 httpd = HTTPServer(('localhost', 8080), Serv)
 httpd.serve_forever()
